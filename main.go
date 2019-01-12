@@ -6,5 +6,6 @@ import (
 
 
 func main() {
-	notify.Monitor()
+	var monitor *notify.FileMonitor = new(notify.FileMonitor)
+	monitor.Monitor()
 }

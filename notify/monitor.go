@@ -7,6 +7,7 @@ import (
     "fmt"
     "path/filepath"
     "path"
+    "io/ioutil"
 )
 
 type FileMonitor struct {
@@ -49,10 +50,22 @@ func (f *FileMonitor)Monitor() {
                         fmt.Println("写入文件 : ", ev.Name);
                         paths, fileName := filepath.Split(ev.Name) 
                         fmt.Println(paths, fileName) //获取路径中的目录及文件名 E:\data\ test.txt 
-                        fmt.Println(filepath.Base(files)) //获取路径中的文件名
-                        test.txt fmt.Println(path.Ext(files)) //获取路径中的文件的后缀 .txt
+                        fmt.Println(filepath.Base(ev.Name)) //获取路径中的文件名test.txt 
+                        
 
-                        f.m_tcpserver.notify("hello")
+                        if path.Ext(ev.Name) == ".txt" {
+                            fmt.Println(path.Ext(ev.Name)) //获取路径中的文件的后缀 .txt
+                            b, err := ioutil.ReadFile(ev) 
+                            if err != nil { 
+                                fmt.Print(err) 
+                            } 
+                            fmt.Println(b) 
+                            str := string(b) 
+                        
+                            f.m_tcpserver.Notify(str)
+                        }
+
+                        
                     }
                     if ev.Op&fsnotify.Remove == fsnotify.Remove {
                         log.Println("删除文件 : ", ev.Name);
