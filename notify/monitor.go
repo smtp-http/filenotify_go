@@ -42,11 +42,9 @@ func (f *FileMonitor)Monitor() {
                     // Rename 重命名
                     // Chmod 修改权限
                     if ev.Op&fsnotify.Create == fsnotify.Create {
-                        log.Println("创建文件 : ", ev.Name);
                         fmt.Println("创建文件 : ", ev.Name);
                     }
                     if ev.Op&fsnotify.Write == fsnotify.Write {
-                        log.Println("写入文件 : ", ev.Name);
                         fmt.Println("写入文件 : ", ev.Name);
                         paths, fileName := filepath.Split(ev.Name) 
                         fmt.Println(paths, fileName) //获取路径中的目录及文件名 E:\data\ test.txt 
@@ -55,7 +53,7 @@ func (f *FileMonitor)Monitor() {
 
                         if path.Ext(ev.Name) == ".txt" {
                             fmt.Println(path.Ext(ev.Name)) //获取路径中的文件的后缀 .txt
-                            b, err := ioutil.ReadFile(ev) 
+                            b, err := ioutil.ReadFile(ev.Name) 
                             if err != nil { 
                                 fmt.Print(err) 
                             } 
@@ -67,16 +65,16 @@ func (f *FileMonitor)Monitor() {
 
                         
                     }
+
                     if ev.Op&fsnotify.Remove == fsnotify.Remove {
-                        log.Println("删除文件 : ", ev.Name);
                         fmt.Println("删除文件 : ", ev.Name);
                     }
+
                     if ev.Op&fsnotify.Rename == fsnotify.Rename {
-                        log.Println("重命名文件 : ", ev.Name);
                         fmt.Println("重命名文件 : ", ev.Name);
                     }
+                    
                     if ev.Op&fsnotify.Chmod == fsnotify.Chmod {
-                        log.Println("修改权限 : ", ev.Name);
                         fmt.Println("修改权限 : ", ev.Name);
                     }
                 }
