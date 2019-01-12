@@ -2,16 +2,18 @@ package notify;
  
 import (
     "github.com/fsnotify/fsnotify"
-    . "github.com/smtp-http/filenotify_go/conn"
+    "github.com/smtp-http/filenotify_go/conn"
     "log"
     "fmt"
+    "path/filepath"
+    "path"
 )
 
 type FileMonitor struct {
     m_tcpserver *conn.TcpServer
 }
  
-func Monitor() {
+func (f *FileMonitor)Monitor() {
 
 
 
@@ -45,6 +47,12 @@ func Monitor() {
                     if ev.Op&fsnotify.Write == fsnotify.Write {
                         log.Println("写入文件 : ", ev.Name);
                         fmt.Println("写入文件 : ", ev.Name);
+                        paths, fileName := filepath.Split(ev.Name) 
+                        fmt.Println(paths, fileName) //获取路径中的目录及文件名 E:\data\ test.txt 
+                        fmt.Println(filepath.Base(files)) //获取路径中的文件名
+                        test.txt fmt.Println(path.Ext(files)) //获取路径中的文件的后缀 .txt
+
+                        f.m_tcpserver.notify("hello")
                     }
                     if ev.Op&fsnotify.Remove == fsnotify.Remove {
                         log.Println("删除文件 : ", ev.Name);
