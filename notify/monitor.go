@@ -2,9 +2,14 @@ package notify;
  
 import (
     "github.com/fsnotify/fsnotify"
+    . "github.com/smtp-http/filenotify_go/conn"
     "log"
     "fmt"
 )
+
+type FileMonitor struct {
+    m_tcpserver *conn.TcpServer
+}
  
 func Monitor() {
 
