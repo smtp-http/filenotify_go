@@ -6,7 +6,7 @@ import (
     "fmt"
 )
  
-func monitor() {
+func Monitor() {
 
 
 

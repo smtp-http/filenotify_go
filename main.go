@@ -6,5 +6,5 @@ import (
 
 
 func main() {
-	notify.monitor()
+	notify.Monitor()
 }
