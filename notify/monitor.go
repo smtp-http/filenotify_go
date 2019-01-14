@@ -40,8 +40,8 @@ func (f *FileMonitor)Monitor() {
         log.Fatal(err);
     }
     defer watch.Close();
-    //添加要监控的对象，文件或文件夹
-    err = watch.Add("./tmp");
+    //
+    err = watch.Add(config.GetConfig().Path);
     if err != nil {
         log.Fatal(err);
     }
