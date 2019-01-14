@@ -13,6 +13,7 @@ type Configuration struct {
     Port string `json:"port"`
     HttpEnable bool `json:"http_enable"`
     Url    string `json:"url"`
+    Path string `json:"path"`
 }
 
 type ConfigLoader struct {
