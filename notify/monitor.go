@@ -58,9 +58,9 @@ func (f *FileMonitor)Monitor() {
                                 fmt.Print(err) 
                             } 
                             fmt.Println(b) 
-                            str := string(b) 
+                            //str := string(b) 
                         
-                            f.m_tcpserver.Notify(str)
+                            f.m_tcpserver.Notify(b)
                         }
 
                         
