@@ -18,7 +18,12 @@ func (s *TcpServer) Notify (msg []byte) bool {
 		session := e.Value.(*zero.Session)
 		conn := session.GetConn()
 		
-		conn.SendBytes(msg)
+		err := conn.SendBytes(msg)
+		if err != nil {
+			fmt.Printf("send err: %x, remove\n",e)
+
+			s.SessionList.Remove(e)
+		}
 	}
 
 	return true
@@ -63,6 +68,8 @@ func HandleMessage(s *zero.Session, msg *zero.Message) {
 
 func HandleDisconnect(s *zero.Session, err error) {
 	fmt.Println(s.GetConn().GetName() + " lost.")
+	tcpserver := GetServerInstance()
+	tcpserver.SessionList.Remove(s)
 }
 
 func HandleConnect(s *zero.Session) {
