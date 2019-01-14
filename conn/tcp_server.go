@@ -69,7 +69,13 @@ func HandleMessage(s *zero.Session, msg *zero.Message) {
 func HandleDisconnect(s *zero.Session, err error) {
 	fmt.Println(s.GetConn().GetName() + " lost.")
 	tcpserver := GetServerInstance()
-	tcpserver.SessionList.Remove(s)
+	for e := tcpserver.SessionList.Front(); e != nil; e = e.Next() {
+		session := e.Value.(*zero.Session)
+		if s == session {
+			tcpserver.SessionList.Remove(e)
+		}
+	}
+	
 }
 
 func HandleConnect(s *zero.Session) {
