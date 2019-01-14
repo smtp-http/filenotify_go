@@ -3,6 +3,7 @@ package notify;
 import (
     "github.com/fsnotify/fsnotify"
     "github.com/smtp-http/filenotify_go/conn"
+    "github.com/smtp-http/filenotify_go/config"
     "log"
     "fmt"
     "path/filepath"
@@ -76,6 +77,12 @@ func (f *FileMonitor)Monitor() {
                             //str := string(b) 
                         
                             f.m_tcpserver.Notify(b)
+                            configure := config.GetConfig()
+                            if configure.HttpEnable == true {
+                                httpClient := conn.GetHttpClientInstance()
+                                httpClient.HttpPost(b)
+                            }
+
                         }
 
                         
