@@ -1,7 +1,12 @@
 package conn
 
 import (
-	"errors"
+	"sync"
+	"bytes"
+	"fmt"
+	"net/url"
+    "net/http"
+    "io/ioutil"
 )
 
 type HttpClient struct {

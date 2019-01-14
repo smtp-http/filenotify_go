@@ -30,14 +30,14 @@ func (s *TcpServer) Notify (msg []byte) bool {
 }
 
  
-var instance *TcpServer
-var once sync.Once
+var tcpserver_instance *TcpServer
+var tcp_once sync.Once
  
 func GetServerInstance() *TcpServer {
-    once.Do(func() {
-        instance = &TcpServer{}
+    tcp_once.Do(func() {
+        tcpserver_instance = &TcpServer{}
     })
-    return instance
+    return tcpserver_instance
 }
 
 
