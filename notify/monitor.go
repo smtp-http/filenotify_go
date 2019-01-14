@@ -8,10 +8,25 @@ import (
     "path/filepath"
     "path"
     "io/ioutil"
+    "sync"
 )
 
 type FileMonitor struct {
     m_tcpserver *conn.TcpServer
+}
+
+var instance *FileMonitor
+var once sync.Once
+ 
+func GetFileMonitorInstance() *FileMonitor {
+    once.Do(func() {
+        instance = &FileMonitor{}
+    })
+    return instance
+}
+
+func (f *FileMonitor)SetTcpserver(server *conn.TcpServer) {
+    f.m_tcpserver = server
 }
  
 func (f *FileMonitor)Monitor() {
